@@ -13,7 +13,7 @@ db.sqlite3
 .python-version
 datadump.json
 # Environments
-.env
+
 .venv
 env/
 venv/
