@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from decouple import Config, RepositoryEnv
 
-DOTENV_FILE = '.env'
+DOTENV_FILE = 'BankBrunoFounda/.env'
 env_config = Config(RepositoryEnv(DOTENV_FILE))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env_config.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-3snwi3c=)*#1g4u*bwq@cl4l=%#-8l^w6-z^dqa!=p1np9lx2$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -145,12 +145,12 @@ LOGIN_URL = 'login/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = env_config.get('AUTH_USER_MODEL')
-EMAIL_BACKEND = env_config.get('EMAIL_BACKEND')
-EMAIL_USE_TLS = env_config.get('EMAIL_USE_TLS', default=False, cast=bool)
-EMAIL_HOST = env_config.get('EMAIL_HOST')
-EMAIL_HOST_USER = env_config.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env_config.get('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = env_config.get('EMAIL_PORT', default=25, cast=int)
+AUTH_USER_MODEL = 'User.NewUser'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'davenewton069@gmail.com'
+EMAIL_HOST_PASSWORD ='uwvutpfnglkgmvwv'
+EMAIL_PORT = 587
 
 # AUTHENTICATION_BACKENDS = ['path.to.auth.module.EmailBackend']
