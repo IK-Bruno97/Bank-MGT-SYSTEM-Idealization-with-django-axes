@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,15 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3snwi3c=)*#1g4u*bwq@cl4l=%#-8l^w6-z^dqa!=p1np9lx2$'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['web-production-863a.up.railway.app']
 
-ADMINS=[("ikbruno", "edom.ik.bruno@gmail.com"), ("dave", 'davenewton069@gmail.com') ]
+ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-863a.up.railway.app']
+#ADMINS=[("ikbruno", "edom.ik.bruno@gmail.com"), ("dave", 'davenewton069@gmail.com') ]
+
 
 # Application definition
 
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -142,12 +142,12 @@ LOGIN_URL = 'login/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'User.NewUser'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'davenewton069@gmail.com'
-EMAIL_HOST_PASSWORD ='uwvutpfnglkgmvwv'
-EMAIL_PORT = 587
+AUTH_USER_MODEL = config('AUTH_USER_MODEL')
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
 
 # AUTHENTICATION_BACKENDS = ['path.to.auth.module.EmailBackend']
