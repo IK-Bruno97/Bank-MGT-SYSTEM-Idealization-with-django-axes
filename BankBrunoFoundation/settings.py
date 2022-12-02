@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3snwi3c=)*#1g4u*bwq@cl4l=%#-8l^w6-z^dqa!=p1np9lx2$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['web-production-863a.up.railway.app']
 
 ADMINS=[("ikbruno", "edom.ik.bruno@gmail.com"), ("dave", 'davenewton069@gmail.com') ]
