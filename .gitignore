@@ -15,8 +15,6 @@ datadump.json
 # Environments
 
 .venv
-.env
-env/
 venv/
 ENV/
 env.bak/
