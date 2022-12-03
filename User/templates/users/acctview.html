@@ -1,0 +1,81 @@
+{% extends 'frontend/base.html' %}
+
+{% block title %}Logged In | {% endblock %}
+
+{% block content %}
+<script>
+    // Get the element with id="defaultOpen" and click on it
+    document.addEventListener("load", document.querySelector("#defaultOpen").click(););
+    
+    </script>
+<br>
+<br>
+
+<div class="w3-container w3-margin">
+    <div class="w3-container w3-row w3-black w3-padding-8">
+        <p style="color:white; float:right;" id="jscal"><p> 
+        <p class="">Welcome, {{request.user.first_name}} </p>
+    </div>
+
+    <button id="defaultOpen" class="tablink" onclick="openPage('Home', this, 'dodgerblue')"><i class="fa fa-building-columns"></i>&#127963; Account Overview</button>
+    <button class="tablink" onclick="openPage('News', this, 'red')">&#x21c4; Transfer</button>
+
+
+    <div id="Home" class="tabcontent">
+        <h2>Current Balance&#x2139; <br> $ {{request.user.balance.Available_Balance}}</h2>
+        <hr>
+        <h3>Approved Transactions</h3>
+        <table class="w3-responsive w3-striped w3-text-black">
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Discription</th>
+                <th>Destination</th>
+            </tr>
+            {% for x in Transfers%}
+            <tr>
+                <td>{{ x.Date|date:"SHORT_DATE_FORMAT" }}</td>
+                <td class="w3-text-red">-{{ x.Amount }}</td>
+                <td>{{ x.Discription }}</td>
+                <td>{{x.Destination}}</td>
+            </tr>
+            {% endfor %}
+            {% for x in Deposits %}
+            <tr>
+                <td>{{ x.Date|date:"SHORT_DATE_FORMAT" }}</td>
+                <td class="w3-text-green">{{ x.Amount }}</td>
+                <td class="w3-center"> - </td>
+                <td class="w3-center"> - </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p></p>
+    </div>
+    
+   
+    <div id="News" class="tabcontent w3-center">
+        <h3>Transfer form</h3>
+
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {% autoescape on %}
+            {{form.as_p}}
+            <label for="amount">$500 max transfer amount per 12hr.</label><br>
+            <input type="text" name="amount" value="{{data.amount}}" placeholder="$" min="0" max="500" required>
+            <br><br>
+            <label for="destination">Destination Account Number.</label><br>
+            <input type="text" name="destination" value="{{data.destination}}" placeholder="phone" required>
+            <br><br>
+            <label for="amount">Discription</label><br>
+            <input type="text" name="discription" value="{{data.discription}}" placeholder="For savings" required>
+            <br><br>
+
+            <input type="submit" value="Transfer" />
+            {% endautoescape %}
+        </form>
+        <p>Want to make deposits? <a style="color:lime;" href="{%url 'deposit'%}">Here</a></p>
+    </div>
+</div>
+
+{% endblock %}
