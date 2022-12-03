@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+
+CSRF_TRUSTED_ORIGINS = ['https://web-production-863a.up.railway.app',]
+
 #ADMINS=[("ikbruno", "edom.ik.bruno@gmail.com"), ("dave", 'davenewton069@gmail.com') ]
 
 
