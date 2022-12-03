@@ -11,7 +11,17 @@
             <form method="post" action="" autocomplete="off">
                 {% csrf_token %}
                 {% autoescape on %}
-                {{form.as_p}}
+
+                {%for x in form%}
+
+                    <small>{{ x.label}}: </small>
+                    <br>
+                    {{ x }}
+                    <br>
+                
+                {% endfor %}
+                <br><br>
+
                 {% endautoescape %}
                 <input type="submit" value="Sign Up">
             </form>
