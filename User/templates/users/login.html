@@ -27,7 +27,19 @@
            <div>
                 <form method='post' autocomplete="off">
                     {% csrf_token %}
-                    {{ form.as_p}}
+                    {% autoescape on %}
+
+                    {%for x in form%}
+
+                        <small>{{ x.label}}: </small>
+                        <br>
+                        {{ x }}
+                        <br>
+                    
+                    {% endfor %}
+                    <br><br>
+
+                {% endautoescape %}
                     <input type="submit" name="submit" value="Log in">
                 </form>
             </div>
