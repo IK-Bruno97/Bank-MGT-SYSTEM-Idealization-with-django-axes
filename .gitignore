@@ -14,8 +14,3 @@ db.sqlite3
 datadump.json
 # Environments
 
-.venv
-venv/
-ENV/
-env.bak/
-venv.bak/
