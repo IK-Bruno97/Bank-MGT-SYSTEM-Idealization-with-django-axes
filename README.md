@@ -5,4 +5,9 @@ By default an unauthenticated user can only view the home/welcome page, then sig
 
 Users can be able to change thier email address and password via the links that would be sent to thier existing email.
 
-I admit that a lot more features can be added to this project to standardize it.
+Alot more features can be added to this project to standardize it.
+
+
+
+user 1 = {username:"user1@mail.com", password:"123456user", phone:00112233}
+user 2 = {username:"seconduser@mail.com", password:"123456user", phone:112345813}
