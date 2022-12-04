@@ -122,29 +122,30 @@ class AccountDetailsView(LoginRequiredMixin, View):
 
 
        #verify if acct number/ph_number from Destination field exists in Db for Transfer Success
-        if NewUser.objects.get(phone=destination):
-            if int(amount) < debitor.Available_Balance:
-                Transaction = Transfer.objects.create(
-                        User=user,
-                        Amount=amount,
-                        Destination=destination,
-                        Discription=discription,
-                )
-                #deduct the amount from user acct balance
-                debitor.Available_Balance -= int(amount)
-                debitor.save()
+        try:
+            if NewUser.objects.get(phone=destination):
+                if int(amount) < debitor.Available_Balance:
+                    Transaction = Transfer.objects.create(
+                            User=user,
+                            Amount=amount,
+                            Destination=destination,
+                            Discription=discription,
+                    )
+                    #deduct the amount from user acct balance
+                    debitor.Available_Balance -= int(amount)
+                    debitor.save()
 
-                #add the amount to beneficiary acct balance
-                beneficiary = NewUser.objects.get(phone=destination)
-                credit = AccountBalance.objects.get(User=beneficiary)
-                credit.Available_Balance += int(amount)
-                credit.save()
-                
-                Transaction.save()
-                return render(request, 'users/success.html')
+                    #add the amount to beneficiary acct balance
+                    beneficiary = NewUser.objects.get(phone=destination)
+                    credit = AccountBalance.objects.get(User=beneficiary)
+                    credit.Available_Balance += int(amount)
+                    credit.save()
+                    
+                    Transaction.save()
+                    return render(request, 'users/success.html')
 
-        else:
-            return HttpResponse('Invalid account number!')
+        except Exception as identifier:
+            return HttpResponse('<center>Invalid account number! Verify account/phone number and try again</center>')
        
 class DepositView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
