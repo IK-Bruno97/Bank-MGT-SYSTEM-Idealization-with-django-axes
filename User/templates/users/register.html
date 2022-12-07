@@ -6,24 +6,40 @@
 {% block content %}
 <br>
     <div class="w3-container w3-padding-64 login-form">
+        
         <div class="w3-container">
+
             <h1>Sign Up</h1>
+
+            {% include 'partials/_flash_messages.html'%}
+
             <form method="post" action="" autocomplete="off">
                 {% csrf_token %}
                 {% autoescape on %}
 
-                {%for x in form%}
+                    <label for="email">Email address: </label><br>
+                    <input type="email" name="email" value="{{data.email}}" placeholder="Email">
+                    <br>
+                    <label for="phone">Phone number: </label><br>
+                    <input type="text" name="phone" value="{{data.phone}}" placeholder="0123456789">
+                    <br>
+                    <label for="first_name">First name: </label><br>
+                    <input type="text" name="first_name" value="{{data.first_name}}" placeholder="Your first name">
+                    <br>
+                    <label for="last_name">Last name: </label><br>
+                    <input type="text" name="last_name" value="{{data.last_name}}" placeholder="Your last name">
+                    <br>
+                    <label for="password">Pasword: </label><br>
+                    <input type="password" name="password" value="" placeholder="Password">
+                    <br>
+                    <label for="password2">Password confirmation: </label><br>
+                    <input type="password" name="password2" value="" placeholder="Confirm Password">
+                    <br><br>
 
-                    <small>{{ x.label}}: </small>
-                    <br>
-                    {{ x }}
-                    <br>
-                
-                {% endfor %}
-                <br>
+                    <input type="submit" value="Sign Up"><br>
 
                 {% endautoescape %}
-                <input type="submit" value="Sign Up">
+                
             </form>
             <small> By signing up, you agree to our Terms, Data Policy and Cookies Policy.</small>
         </div>
