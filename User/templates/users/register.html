@@ -18,22 +18,22 @@
                 {% autoescape on %}
 
                     <label for="email">Email address: </label><br>
-                    <input type="email" name="email" value="{{data.email}}" placeholder="Email">
+                    <input type="email" name="email" value="{{data.email}}" placeholder="Email" required />
                     <br>
                     <label for="phone">Phone number: </label><br>
-                    <input type="text" name="phone" value="{{data.phone}}" placeholder="0123456789">
+                    <input type="text" name="phone" value="{{data.phone}}" placeholder="0123456789" required />
                     <br>
                     <label for="first_name">First name: </label><br>
-                    <input type="text" name="first_name" value="{{data.first_name}}" placeholder="Your first name">
+                    <input type="text" name="first_name" value="{{data.first_name}}" placeholder="Your first name" required/>
                     <br>
                     <label for="last_name">Last name: </label><br>
-                    <input type="text" name="last_name" value="{{data.last_name}}" placeholder="Your last name">
+                    <input type="text" name="last_name" value="{{data.last_name}}" placeholder="Your last name" required />
                     <br>
                     <label for="password">Pasword: </label><br>
-                    <input type="password" name="password" value="" placeholder="Password">
+                    <input type="password" name="password" value="" placeholder="Password" required />
                     <br>
                     <label for="password2">Password confirmation: </label><br>
-                    <input type="password" name="password2" value="" placeholder="Confirm Password">
+                    <input type="password" name="password2" value="" placeholder="Confirm Password" required />
                     <br><br>
 
                     <input type="submit" value="Sign Up"><br>
