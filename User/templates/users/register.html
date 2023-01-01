@@ -18,6 +18,7 @@
                 {% autoescape on %}
 
                     <label for="email">Email address: </label><br>
+<<<<<<< HEAD
                     <input type="email" name="email" value="{{data.email}}" placeholder="Email">
                     <br>
                     <label for="phone">Phone number: </label><br>
@@ -34,6 +35,24 @@
                     <br>
                     <label for="password2">Password confirmation: </label><br>
                     <input type="password" name="password2" value="" placeholder="Confirm Password">
+=======
+                    <input type="email" name="email" value="{{data.email}}" placeholder="eg: yourmail@email.com" required />
+                    <br>
+                    <label for="phone">Phone number: </label><br>
+                    <input type="text" name="phone" value="{{data.phone}}" placeholder="0123456789" required />
+                    <br>
+                    <label for="first_name">First name: </label><br>
+                    <input type="text" name="first_name" value="{{data.first_name}}" placeholder="Your first name" required/>
+                    <br>
+                    <label for="last_name">Last name: </label><br>
+                    <input type="text" name="last_name" value="{{data.last_name}}" placeholder="Your last name" required />
+                    <br>
+                    <label for="password">Pasword: </label><br>
+                    <input type="password" name="password" value="" placeholder="Password" required />
+                    <br>
+                    <label for="password2">Password confirmation: </label><br>
+                    <input type="password" name="password2" value="" placeholder="Confirm Password" required />
+>>>>>>> 604b0a4c2a12605b21d20b6ce63a6a4c809977ab
                     <br><br>
 
                     <input type="submit" value="Sign Up"><br>
@@ -41,7 +60,7 @@
                 {% endautoescape %}
                 
             </form>
-            <small> By signing up, you agree to our Terms, Data Policy and Cookies Policy.</small>
+            <small> By submitting, you agree to our <a href="#">Terms and Policies.</a> In addition, you also agree to receive email messages from us.</small>
         </div>
     </div>
  {% endblock %}

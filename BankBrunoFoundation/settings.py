@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['web-production-863a.up.railway.app', '127.0.0.1', '172.20.10.14']
+ALLOWED_HOSTS = ['web-production-863a.up.railway.app']
 
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-863a.up.railway.app',]
@@ -93,9 +93,9 @@ DATABASES = {
 """DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydb',
-        'USER': 'myuser',
-        'PASSWORD': 'mypass123',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
