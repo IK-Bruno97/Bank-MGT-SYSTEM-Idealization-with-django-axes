@@ -5,14 +5,11 @@ from django.contrib.auth import login
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
-
 from django.contrib.auth.views import LoginView
-from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 
 from django.conf import settings
-from .forms import SignUpForm
 from django.urls import reverse_lazy
 from .models import NewUser, Transfer, AccountBalance, Deposit
 
@@ -45,39 +42,82 @@ class LogoutView(View):
 """
 
 
-class RegisterPage(FormView):
-    template_name = 'users/register.html'
-    form_class = SignUpForm
-    success_url = reverse_lazy('login')
+class RegisterPage(View):
+    def get(self, request):
+        return render(request, 'users/register.html')
 
-    def get(self, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            return redirect('login')
-        return super(RegisterPage, self).get(*args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            
-            current_site = get_current_site(request)
-            mail_subject = 'Activate your account.'
-            message = render_to_string('users/activate.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': force_str(urlsafe_base64_encode(force_bytes(user.pk))),
-                'token': account_activation_token.make_token(user),
-            })
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(
-                        mail_subject, message, to=[to_email]
-            )
-            email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
-            
-        return super(RegisterPage, self).form_valid(form)
+    def post(self, request):
+
+        context = {
+
+            'data': request.POST,
+            'has_error': False
+        }
+
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+        if len(password) < 6:
+            messages.add_message(request, messages.ERROR,
+                                 'passwords should be atleast 6 characters long')
+            context['has_error'] = True
+        if password != password2:
+            messages.add_message(request, messages.ERROR,
+                                 'passwords dont match')
+            context['has_error'] = True
+
+        if not validate_email(email):
+            messages.add_message(request, messages.ERROR,
+                                 'Please provide a valid email')
+            context['has_error'] = True
+
+        try:
+            if NewUser.objects.get(email=email):
+                messages.add_message(request, messages.ERROR, 'Email is taken')
+                context['has_error'] = True
+
+        except Exception as identifier:
+            pass
+
+        try:
+            if NewUser.objects.get(phone=phone):
+                messages.add_message(
+                    request, messages.ERROR, 'Phone number already exists')
+                context['has_error'] = True
+
+        except Exception as identifier:
+            pass
+
+        if context['has_error']:
+            return render(request, 'users/register.html', context, status=400)
+
+        user = NewUser.objects.create_user(email=email, phone=phone, first_name=first_name, password=password)
+        user.set_password(password)
+        user.last_name = last_name
+        user.is_active = False
+        user.save()
+
+        
+        current_site = get_current_site(request)
+        mail_subject = 'Activate your account.'
+        message = render_to_string('users/activate.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': force_str(urlsafe_base64_encode(force_bytes(user.pk))),
+            'token': account_activation_token.make_token(user),
+        })
+        to_email = email
+        email = EmailMessage(
+                    mail_subject, message, to=[to_email]
+        )
+        email.send()
+        return HttpResponse('Please confirm from your email inbox to complete the registration')
+    
 
 
 
@@ -122,29 +162,30 @@ class AccountDetailsView(LoginRequiredMixin, View):
 
 
        #verify if acct number/ph_number from Destination field exists in Db for Transfer Success
-        if NewUser.objects.get(phone=destination):
-            if int(amount) < debitor.Available_Balance:
-                Transaction = Transfer.objects.create(
-                        User=user,
-                        Amount=amount,
-                        Destination=destination,
-                        Discription=discription,
-                )
-                #deduct the amount from user acct balance
-                debitor.Available_Balance -= int(amount)
-                debitor.save()
+        try:
+            if NewUser.objects.get(phone=destination):
+                if int(amount) < debitor.Available_Balance:
+                    Transaction = Transfer.objects.create(
+                            User=user,
+                            Amount=amount,
+                            Destination=destination,
+                            Discription=discription,
+                    )
+                    #deduct the amount from user acct balance
+                    debitor.Available_Balance -= int(amount)
+                    debitor.save()
 
-                #add the amount to beneficiary acct balance
-                beneficiary = NewUser.objects.get(phone=destination)
-                credit = AccountBalance.objects.get(User=beneficiary)
-                credit.Available_Balance += int(amount)
-                credit.save()
-                
-                Transaction.save()
-                return render(request, 'users/success.html')
+                    #add the amount to beneficiary acct balance
+                    beneficiary = NewUser.objects.get(phone=destination)
+                    credit = AccountBalance.objects.get(User=beneficiary)
+                    credit.Available_Balance += int(amount)
+                    credit.save()
+                    
+                    Transaction.save()
+                    return render(request, 'users/success.html')
 
-        else:
-            return HttpResponse('Invalid account number!')
+        except Exception as identifier:
+            return HttpResponse('<center>Invalid account number! Verify account/phone number and try again</center>')
        
 class DepositView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):

@@ -34,8 +34,3 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = NewUser
         fields = ['email', 'phone', 'first_name', 'last_name', 'password1', 'password2']
-
-class TransferForm(forms.ModelForm):
-    class Meta:
-        model = Transfer
-        exclude = ['Balance']

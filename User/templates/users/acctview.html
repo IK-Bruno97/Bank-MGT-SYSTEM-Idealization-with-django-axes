@@ -4,10 +4,11 @@
 
 {% block content %}
 <script>
+    document.addEventListener("DOMContentLoaded", () => {  
+        document.querySelector('#defaultOpen').click()
+    });
     // Get the element with id="defaultOpen" and click on it
-    document.addEventListener("load", document.querySelector("#defaultOpen").click(););
-    
-    </script>
+</script>
 <br>
 <br>
 
@@ -17,7 +18,7 @@
         <p class="">Welcome, {{request.user.first_name}} </p>
     </div>
 
-    <button id="defaultOpen" class="tablink" onclick="openPage('Home', this, 'dodgerblue')"><i class="fa fa-building-columns"></i>&#127963; Account Overview</button>
+    <button class="tablink" onclick="openPage('Home', this, 'dodgerblue')" id="defaultOpen">&#127963; Account Overview</button>
     <button class="tablink" onclick="openPage('News', this, 'red')">&#x21c4; Transfer</button>
 
 
