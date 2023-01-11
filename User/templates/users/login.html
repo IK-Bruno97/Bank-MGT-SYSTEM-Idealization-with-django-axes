@@ -18,9 +18,9 @@
            
 
             {% if form.errors %}
-                    <p class="w3-text-red">Your username and password didn't match. Please try again.</p>
+                    <p class="w3-text-red">Your username and password didn't match. Please try again and note that you'll be locked out after 3 failed attemps.</p>
 
-                    <p> Forgot Password? <a class="w3-text-red" href="{% url 'request-reset-email' %}"> Reset it here</a> </p>
+                    <p>If Forgot Password? <a class="w3-text-red" href="{% url 'request-reset-email' %}"> Reset it here</a> </p>
 
             {% endif %}
            
