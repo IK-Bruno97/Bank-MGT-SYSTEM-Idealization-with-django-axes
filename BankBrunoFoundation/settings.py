@@ -46,7 +46,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'frontend.apps.FrontendConfig',
     'User',
-    'axes'
+    'axes',
+
+    #if working with allauth
+    #'django.contrib.sites',
+
+    #'allauth',
+    #'allauth.account',
+    #'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    #'allauth.socialaccount.providers.google',
+    
 ]
 
 MIDDLEWARE = [
@@ -185,7 +195,7 @@ AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1 #an hour
 # AXES_ONLY_USER_FAILURES 
 AXES_LOCK_OUT_BY_COMBINATION_USER_AND_IP = True
-#AXES_LOCKOUT_TEMPLATE
+AXES_LOCKOUT_TEMPLATE = 'frontend/lockedout.html'
 #AXES_NEVER_LOCKOUT_WHITELIST
 #AXES_IP_WHITELIST
 #AXES_IP_BLACKLIST

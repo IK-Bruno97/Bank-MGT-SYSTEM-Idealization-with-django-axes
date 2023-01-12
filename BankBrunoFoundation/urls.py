@@ -23,3 +23,6 @@ urlpatterns = [
     path('', include('frontend.urls')),
     path('', include('User.urls')),
 ]
+'''urlpatterns += [
+    path('captcha/', include('captcha.urls')),
+]'''

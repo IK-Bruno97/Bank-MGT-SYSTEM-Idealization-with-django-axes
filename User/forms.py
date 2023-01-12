@@ -2,13 +2,14 @@ from django import forms
 from . models import NewUser, Transfer
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
-
+#from captcha.fields import CaptchaField
 
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
+    #captcha = CaptchaField()
     class Meta:
         model = NewUser
         fields = '__all__'
