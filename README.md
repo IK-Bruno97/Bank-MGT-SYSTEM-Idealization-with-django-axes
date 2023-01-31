@@ -9,5 +9,3 @@ Alot more features can be added to this project to standardize it.
 
 
 
-user 1 = {username:"user1@mail.com", password:"123456user", phone:00112233}
-user 2 = {username:"seconduser@mail.com", password:"123456user", phone:112345813}
