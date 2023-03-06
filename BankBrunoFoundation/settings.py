@@ -227,7 +227,7 @@ LOGGING = {
             "level": "INFO",
             "class": "logging.FileHandler",
             "formatter": "default",
-            "filename": os.path.join(BASE_DIR, "djangolog/debug.log"),
+            "filename": os.path.join(BASE_DIR, "debug.log"),
         },
     },
     "loggers": {
