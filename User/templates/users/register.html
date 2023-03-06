@@ -9,7 +9,7 @@
         
         <div class="w3-container">
 
-            <h1>Sign Up</h1>
+            <h1>Sign Up Form</h1>
 
             {% include 'partials/_flash_messages.html'%}
 
@@ -17,31 +17,25 @@
                 {% csrf_token %}
                 {% autoescape on %}
 
-                    <label for="email">Email address: </label><br>
-                    <input type="email" name="email" value="{{data.email}}" placeholder="Email">
+                    <input class="ship-input" type="email" name="email" value="{{data.email}}" placeholder="Enter Email Address.." autocomplete='off'>
                     <br>
-                    <label for="phone">Phone number: </label><br>
-                    <input type="text" name="phone" value="{{data.phone}}" placeholder="0123456789">
+                    <input class="ship-input" type="text" name="phone" value="{{data.phone}}" placeholder="Enter your mobile number.." autocomplete='off'>
                     <br>
-                    <label for="first_name">First name: </label><br>
-                    <input type="text" name="first_name" value="{{data.first_name}}" placeholder="Your first name">
+                    <input class="ship-input" type="text" name="first_name" value="{{data.first_name}}" placeholder="Enter Your first name.." autocomplete='off'>
                     <br>
-                    <label for="last_name">Last name: </label><br>
-                    <input type="text" name="last_name" value="{{data.last_name}}" placeholder="Your last name">
+                    <input class="ship-input" type="text" name="last_name" value="{{data.last_name}}" placeholder="Enter Your last name.." autocomplete='off'>
                     <br>
-                    <label for="password">Pasword: </label><br>
-                    <input type="password" name="password" value="" placeholder="Password" autocomplete='off'>
+                    <input class="ship-input" type="password" name="password" value="" placeholder="Enter Your Password.." autocomplete='off'>
                     <br>
-                    <label for="password2">Password confirmation: </label><br>
-                    <input type="password" name="password2" value="" placeholder="Confirm Password" autocomplete="off">
+                    <input class="ship-input" type="password" name="password2" value="" placeholder="Confirm Your Password.." autocomplete="off">
                     <br><br>
 
-                    <input type="submit" value="Sign Up"><br>
+                    <input type="submit" class="w3-button w3-large w3-hover-green w3-border" value="Submit"><br>
 
                 {% endautoescape %}
                 
             </form>
-            <small> By submitting, you agree to our <a href="#">Terms and Policies.</a> In addition, you also agree to receive email messages from us.</small>
+            <span> By submitting, you agree to our <a class="w3-opacity" href="#">Terms and Policies.</a> In addition, you also agree to receive email messages from us.</span>
         </div>
     </div>
  {% endblock %}

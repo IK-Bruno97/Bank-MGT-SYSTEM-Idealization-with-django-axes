@@ -1,10 +1,6 @@
 
 {% autoescape off %}
-<<<<<<< HEAD
     Hi {{user.first_name}},
-=======
-    Hi {{ user.first_name }},
->>>>>>> 604b0a4c2a12605b21d20b6ce63a6a4c809977ab
     Please click on the link to confirm your registration:
     http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 {% endautoescape %}

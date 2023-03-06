@@ -27,14 +27,12 @@
           background-image:  url("{% static 'images/frontend/wind-turbines.jpg'%}");
           min-height: 100%;
         }
-        
         .login-form {
           background-position: center;
           background-size: cover;
           background-image:  url("{% static 'images/frontend/windmil.jpg'%}");
           min-height: 100%;
         }
-        
         .reset-form {
           background-position: center;
           background-size: cover;
@@ -63,6 +61,7 @@
             <a href="{% url 'signup' %}" class="baga w3-bar-item w3-button"><i class="fa fa-clipboard-user"></i>Sign Up</a>
             {% endif %}
           </div>
+
           <!-- Hide right-floated links on small screens and replace them with a menu icon -->
       
           <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
@@ -124,6 +123,8 @@
         }
         //datetime
         document.getElementById('jscal').innerHTML= new Date().toDateString();
+
+        //document.getElementsByClassName('btn-submit').addEventListener('click', setTimeout(location.reload(), 5000));
       </script>
 
     </body>

@@ -8,10 +8,11 @@
         document.querySelector('#defaultOpen').click()
     });
     // Get the element with id="defaultOpen" and click on it
+
 </script>
 <br>
 <br>
-
+{% include 'partials/_flash_messages.html'%}
 <div class="w3-container w3-margin">
     <div class="w3-container w3-row w3-black w3-padding-8">
         <p style="color:white; float:right;" id="jscal"><p> 
@@ -23,9 +24,9 @@
 
 
     <div id="Home" class="tabcontent">
-        <h2>Current Balance&#x2139; <br> $ {{request.user.balance.Available_Balance}}</h2>
+        <h2 class="w3-text-black">Current Balance&#x2139; <br> $ {{request.user.balance.Available_Balance}}</h2>
         <hr>
-        <h3>Approved Transactions</h3>
+        <h3 class="w3-text-black">Approved Transactions</h3>
         <table class="w3-responsive w3-striped w3-text-black">
             <tr>
                 <th>Date</th>
@@ -62,20 +63,17 @@
 
             {% autoescape on %}
             {{form.as_p}}
-            <label for="amount">$500 max transfer amount per 12hr.</label><br>
-            <input type="text" name="amount" value="{{data.amount}}" placeholder="$" min="0" max="500" required>
+            <input class="ship-input" type="text" name="amount" value="{{data.amount}}" placeholder="$500 max transfer amount per 12hr." min="0" max="500" required>
             <br><br>
-            <label for="destination">Destination Account Number.</label><br>
-            <input type="text" name="destination" value="{{data.destination}}" placeholder="phone" required>
+            <input class="ship-input" type="text" name="destination" value="{{data.destination}}" placeholder="Enter Destination Account Number." required>
             <br><br>
-            <label for="amount">Discription</label><br>
-            <input type="text" name="discription" value="{{data.discription}}" placeholder="For savings" required>
+            <input class="ship-input" type="text" name="discription" value="{{data.discription}}" placeholder="Discription" required>
             <br><br>
 
-            <input type="submit" value="Transfer" />
+            <input class="btn-submit w3-button w3-text-black w3-border w3-large w3-hover-green" type="submit" value="Transfer" />
             {% endautoescape %}
         </form>
-        <p>Want to make deposits? <a style="color:lime;" href="{%url 'deposit'%}">Here</a></p>
+        <p class="w3-text-black">Want to make deposits? <a style="color:lime;" href="{%url 'deposit'%}">Here</a></p>
     </div>
 </div>
 

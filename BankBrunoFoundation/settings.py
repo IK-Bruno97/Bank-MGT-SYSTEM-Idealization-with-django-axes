@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+#from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['web-production-863a.up.railway.app', '127.0.0.1']
 
@@ -165,9 +166,7 @@ THOUSAND_SEPARATOR = ","
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-  os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 STATIC_URL = '/static/'
 
@@ -185,17 +184,57 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
 
-AUTHENTICATION_BACKENDS = [
+#AUTHENTICATION_BACKENDS = [
     # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
-   'axes.backends.AxesStandaloneBackend',
+  # 'axes.backends.AxesStandaloneBackend',
 # 'path.to.auth.module.EmailBackend'
-]
+#]
 
-AXES_FAILURE_LIMIT = 5
+AXES_FAILURE_LIMIT = 3
 AXES_COOLOFF_TIME = 1 #an hour
-# AXES_ONLY_USER_FAILURES 
-AXES_LOCK_OUT_BY_COMBINATION_USER_AND_IP = True
+#AXES_ONLY_USER_FAILURES = True 
+#AXES_LOCK_OUT_BY_COMBINATION_USER_AND_IP = True
 AXES_LOCKOUT_TEMPLATE = 'frontend/lockedout.html'
 #AXES_NEVER_LOCKOUT_WHITELIST
 #AXES_IP_WHITELIST
 #AXES_IP_BLACKLIST
+
+'''
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-info",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}'''
+
+#MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+
+
+LOGGING_CONFIG = "logging.config.dictConfig"
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "formatter": "default",
+            "filename": os.path.join(BASE_DIR, "djangolog/debug.log"),
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "propagate": True,
+            "level": "INFO",
+        },
+    },
+}

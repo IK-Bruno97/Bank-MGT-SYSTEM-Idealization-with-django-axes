@@ -1,4 +1,5 @@
 .app{ background-color: rgb(8, 4, 106);}
+
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 body, html {height: 100%;line-height: 1.8;}
 .body{background: linear-gradient(#1fab89, #62d2a2, #9df3c4, #d7fbe8, #f0fff3);}
@@ -7,6 +8,43 @@ body, html {height: 100%;line-height: 1.8;}
 a{text-decoration: underline; white-space: nowrap;}
 a:hover {text-decoration: none;}
 a:active {text-decoration: underline;}
+
+.success{
+	margin: 20px;
+	border-color: rgb(8, 182, 8);
+	color:rgb(83, 82, 82); 
+	background-color: rgba(148, 242, 148, 0.589); 
+	text-align: center;
+}
+.error{
+	margin: 20px;
+	border: red;
+	color: rgb(72, 70, 70); 
+	background-color: rgb(246, 113, 113); 
+	text-align: center;
+}
+.warning{
+	margin: 20px;
+	border-color: yellow;
+	color: rgb(48, 47, 47); 
+	background-color: rgb(246, 246, 129); 
+	text-align: center;
+}
+
+.ship-input{
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0 22px 0;
+	border: none;
+	border-bottom: 1px rgb(63, 1, 1) solid;
+	background-color: transparent;
+}
+  
+.ship-input:focus{
+	border-bottom: 2px green solid;
+	outline: none;
+}
+ 
 .w3-bar .w3-button {padding: 16px;}
 .ml4 {position: relative;}
 .ml4 .letters {top: -30px;position: absolute;margin: auto; left: 0; right: 0; opacity: 0; }
@@ -17,8 +55,6 @@ a:active {text-decoration: underline;}
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent { color: white; display: none; padding: 100px 20px; background-position: center; background-size: cover; min-height: 100%;}
-#Home {background-color: dodgerblue;}
-#News {background-color: rgba(255, 0, 0, 0.868);}
 
 tr{	background-color: white;}
 

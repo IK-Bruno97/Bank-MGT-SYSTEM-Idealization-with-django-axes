@@ -22,6 +22,7 @@ from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from validate_email import validate_email
 import threading
+from .tasks import send_mail
 
 
 # Create your views here.
@@ -32,7 +33,8 @@ class Login(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('details')
-            
+
+          
 """
 class LogoutView(View):
     def post(self, request):
@@ -112,11 +114,11 @@ class RegisterPage(View):
             'token': account_activation_token.make_token(user),
         })
         to_email = email
-        email = EmailMessage(
-                    mail_subject, message, to=[to_email]
-        )
-        email.send()
-        return HttpResponse('Please confirm from your email inbox to complete the registration')
+
+        send_mail(mail_subject, message, to_email)
+
+        messages.success(request, 'Account activation link sent to your email. Kindly check email for verifications.')
+        return redirect('/login/')
     
 
 
@@ -134,7 +136,7 @@ def activate(request, uidb64, token):
         bal.save()
     
         login(request, user)
-        return redirect('details')
+        return redirect('/details/')
         #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
@@ -166,10 +168,10 @@ class AccountDetailsView(LoginRequiredMixin, View):
             if NewUser.objects.get(phone=destination):
                 if int(amount) < debitor.Available_Balance:
                     Transaction = Transfer.objects.create(
-                            User=user,
-                            Amount=amount,
-                            Destination=destination,
-                            Discription=discription,
+                        User=user,
+                        Amount=amount,
+                        Destination=destination,
+                        Discription=discription,
                     )
                     #deduct the amount from user acct balance
                     debitor.Available_Balance -= int(amount)
@@ -182,10 +184,14 @@ class AccountDetailsView(LoginRequiredMixin, View):
                     credit.save()
                     
                     Transaction.save()
-                    return render(request, 'users/success.html')
+                    messages.success(request, 'Transaction Successfull! &#x2713;')
+                    return redirect('/details/')
+
 
         except Exception as identifier:
-            return HttpResponse('<center>Invalid account number! Verify account/phone number and try again</center>')
+            messages.error(request, 'Invalid account number! Verify account/phone number and try again')
+            return redirect('/details/')
+        
        
 class DepositView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
@@ -195,20 +201,26 @@ class DepositView(LoginRequiredMixin, View):
         user = self.request.user 
 
         #get the submited data from Deposit form
-        deposit = request.POST.get('deposit')
+        try:
+            deposit = request.POST.get('deposit')
 
-        creditor = AccountBalance.objects.get(User=user) 
-        
-        #Make actual deposit into user account
-        Deposited = Deposit.objects.create(
-                        User=user, 
-                        Amount=deposit,
-        )
-        creditor.Available_Balance += int(deposit)
-        Deposited.save()
-        creditor.save()
+            creditor = AccountBalance.objects.get(User=user) 
+            
+            #Make actual deposit into user account
+            Deposited = Deposit.objects.create(
+                User=user, 
+                Amount=deposit,
+            )
+            creditor.Available_Balance += int(deposit)
+            Deposited.save()
+            creditor.save()
+            messages.success(request, 'Successfully deposited ${} only.'.format(deposit))
 
-        return render(request, 'users/success.html')
+            return redirect('/details/')
+
+        except Exception as identifier:
+            messages.error(request, 'Amount must be an int or float value.')
+            return redirect('/details/')
 
 
 
@@ -278,7 +290,7 @@ class SetNewPasswordView(View):
                 return render(request, 'users/request-reset-email.html')
 
         except DjangoUnicodeDecodeError as identifier:
-            messages.success(
+            messages.error(
                 request, 'Invalid link')
             return render(request, 'users/request-reset-email.html')
 

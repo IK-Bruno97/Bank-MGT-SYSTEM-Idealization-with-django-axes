@@ -1,7 +1,14 @@
 {% if messages%}
-    <ul class="w3-text-red">
-        {% for message in messages%}
-            <li> {{message}} </li>
-        {%endfor%}
-    </ul>
+
+{% for message in messages%}
+
+<div class="alert {{message.tags}}">
+    {{message}}
+</div>
+
+
+{%endfor%}
+
+
+
 {% endif %}

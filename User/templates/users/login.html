@@ -8,14 +8,7 @@
     <div class="w3-container w3-padding-64 login-form">
         <div class="w3-container w3-center">
 
-           
-            {% if message %}
-                <div class=" w3-container w3-center w3-green"> 
-                    {{message}}
-                </div>
-
-            {% endif %}
-           
+            {% include 'partials/_flash_messages.html'%}
 
             {% if form.errors %}
                     <p class="w3-text-red">Your username and password didn't match. Please try again and note that you'll be locked out after 3 failed attemps.</p>
@@ -37,10 +30,10 @@
                         <br>
                     
                     {% endfor %}
-                    <br><br>
+                    <br>
 
                 {% endautoescape %}
-                    <input type="submit" name="submit" value="Log in">
+                    <input class="w3-button w3-large w3-hover-green" type="submit" name="submit" value="Log in">
                 </form>
             </div>
             <p>Don't have an account? <a class="w3-text-green" href="{% url 'signup'%}"> Register</a> </p> 

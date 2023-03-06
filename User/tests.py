@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 
 
 class UserAccountTests(TestCase):
-
     def test_new_superuser(self):
         db = get_user_model()
         super_user = db.objects.create_superuser(
